@@ -110,7 +110,7 @@ elif app_mode == "📸 ถ่ายภาพ / อัปโหลดให้ AI
                         **หมายเหตุ: ระบุตอนท้ายว่านี่คือการประเมินเบื้องต้นจาก AI เท่านั้น ไม่ใช่ผลทางการแพทย์**
                         """
                         response = ai_client.models.generate_content(
-                            model="gemini-2.5-flash",
+                            model="gemini-1.5-flash",
                             contents=[image, prompt]
                         )
                         st.markdown("### 📝 ผลการวิเคราะห์จาก AI")
@@ -196,7 +196,7 @@ elif app_mode == "🗂️ ประวัติรูปภาพและกา
                             """
                             
                             response = ai_client.models.generate_content(
-                                model="gemini-2.5-flash",
+                                model="gemini-1.5-flash",
                                 contents=[img_before, img_after, prompt]
                             )
                             st.markdown("### 📊 ผลการเปรียบเทียบโดย AI")
