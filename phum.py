@@ -8,7 +8,7 @@ from PIL import Image
 # ----------------------------------------------------
 # 1. ใส่ GEMINI API KEY ของจริง (ขึ้นต้นด้วย AIzaSy...) 🔑
 # ----------------------------------------------------
-GEMINI_API_KEY = "AQ.Ab8RN6K3NJ415Ql2EREFoWqIfy7EicyIzUZtRjiSH9lnu_XBfQ"  # 👈 นำคีย์ AIzaSy... ของคุณมาใส่ตรงนี้ครับ
+GEMINI_API_KEY = "AQ.Ab8RN6K3NJ415Ql2EREFoWqIfy7EicyIzUZtRjiSH9lnu_XBfQ"  
 
 # ----------------------------------------------------
 # 2. ตั้งค่าระบบบันทึกประวัติรูปภาพ (Session State)
