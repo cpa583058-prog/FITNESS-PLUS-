@@ -9,7 +9,7 @@ from PIL import Image
 # ---------------------------------------------------------
 st.set_page_config(
     page_title="NUTRITION & BODY AI DASHBOARD",
-    page_icon="⚡",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="auto"
 )
@@ -232,32 +232,58 @@ st.markdown("""
         transform: translateY(0) !important;
     }
 
-    /* Tabs Styling - Rounded Pill Style */
+    /* Tabs Styling - Ultra Clean Pill Frame & Font Clarity */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-        background: rgba(15, 23, 42, 0.8) !important;
+        gap: 8px !important;
+        background: rgba(15, 23, 42, 0.85) !important;
         padding: 6px !important;
         border-radius: 999px !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        margin-bottom: 16px !important;
     }
     
-    .stTabs [data-baseweb="tab-highlight"] {
+    .stTabs [data-baseweb="tab-highlight"],
+    .stTabs [data-baseweb="tab-border"],
+    div[data-baseweb="tab-highlight"],
+    div[data-baseweb="tab-border"] {
         display: none !important;
+        height: 0 !important;
+        visibility: hidden !important;
     }
 
     .stTabs [data-baseweb="tab"] {
         background-color: transparent !important;
         border-radius: 999px !important;
-        color: #94A3B8 !important;
+        color: #E2E8F0 !important;
+        font-size: 0.98rem !important;
         font-weight: 600 !important;
-        padding: 10px 24px !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        padding: 8px 22px !important;
+        transition: all 0.25s ease !important;
         border: none !important;
+        outline: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 40px !important;
+    }
+
+    .stTabs [data-baseweb="tab"] p,
+    .stTabs [data-baseweb="tab"] span {
+        color: inherit !important;
+        font-size: 0.98rem !important;
+        font-weight: 600 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 1 !important;
+        display: flex !important;
+        align-items: center !important;
     }
 
     .stTabs [data-baseweb="tab"]:hover {
-        color: #F8FAFC !important;
-        background-color: rgba(255, 255, 255, 0.05) !important;
+        color: #FFFFFF !important;
+        background-color: rgba(255, 255, 255, 0.08) !important;
     }
     
     .stTabs [aria-selected="true"] {
@@ -265,7 +291,13 @@ st.markdown("""
         color: #FFFFFF !important;
         font-weight: 700 !important;
         border-radius: 999px !important;
-        box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4) !important;
+        box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4) !important;
+    }
+
+    .stTabs [aria-selected="true"] p,
+    .stTabs [aria-selected="true"] span {
+        color: #FFFFFF !important;
+        font-weight: 700 !important;
     }
 
     /* Metric Cards */
@@ -405,14 +437,16 @@ st.markdown("""
     }
 
     .sidebar-avatar {
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         background: linear-gradient(135deg, #F59E0B, #10B981);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #FFFFFF;
         margin: 0 auto 10px auto;
         box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
     }
@@ -523,21 +557,21 @@ st.markdown("""
 def show_auth_page():
     st.markdown("""
         <div class="hero-header">
-            <div class="badge-pill">⚡ FITNESS & NUTRITION AI</div>
+            <div class="badge-pill">FITNESS & NUTRITION AI</div>
             <h1 class="hero-title">HEALTH DASHBOARD</h1>
             <div class="hero-sub">กรุณากรอกข้อมูลเพื่อเข้าสู่ระบบ หรือ สมัครสมาชิกใหม่</div>
         </div>
     """, unsafe_allow_html=True)
 
     with st.container(border=True):
-        tab_login, tab_register = st.tabs(["🔑 เข้าสู่ระบบ", "📝 สมัครสมาชิกใหม่"])
+        tab_login, tab_register = st.tabs(["เข้าสู่ระบบ", "สมัครสมาชิกใหม่"])
 
         with tab_login:
-            st.markdown('<div class="card-heading">🔑 เข้าสู่ระบบใช้งาน</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-heading">เข้าสู่ระบบใช้งาน</div>', unsafe_allow_html=True)
             login_user_input = st.text_input("ชื่อผู้ใช้งาน (Username)", key="login_user", placeholder="กรอกชื่อผู้ใช้...")
             login_pass_input = st.text_input("รหัสผ่าน (Password)", type="password", key="login_pass", placeholder="กรอกรหัสผ่าน...")
 
-            if st.button("เข้าสู่ระบบ 🚀", key="btn_login"):
+            if st.button("เข้าสู่ระบบ", key="btn_login"):
                 if login_user_input and login_pass_input:
                     result = login_user(login_user_input, login_pass_input)
                     if result:
@@ -545,60 +579,62 @@ def show_auth_page():
                         st.session_state["username"] = login_user_input
                         st.rerun()
                     else:
-                        st.error("❌ ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
+                        st.error("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
                 else:
-                    st.warning("⚠️ กรุณากรอกข้อมูลให้ครบถ้วน")
+                    st.warning("กรุณากรอกข้อมูลให้ครบถ้วน")
 
         with tab_register:
-            st.markdown('<div class="card-heading">📝 สมัครสมาชิกใหม่</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-heading">สมัครสมาชิกใหม่</div>', unsafe_allow_html=True)
             reg_user = st.text_input("ตั้งชื่อผู้ใช้งาน (Username)", key="reg_user", placeholder="ตั้งชื่อผู้ใช้งาน...")
             reg_pass = st.text_input("ตั้งรหัสผ่าน (Password)", type="password", key="reg_pass", placeholder="ตั้งรหัสผ่าน...")
             reg_pass_confirm = st.text_input("ยืนยันรหัสผ่าน (Confirm Password)", type="password", key="reg_pass_confirm", placeholder="ยืนยันรหัสผ่านอีกครั้ง...")
 
-            if st.button("บันทึกการลงทะเบียน 💾", key="btn_register"):
+            if st.button("บันทึกการลงทะเบียน", key="btn_register"):
                 if reg_user and reg_pass and reg_pass_confirm:
                     if reg_pass != reg_pass_confirm:
-                        st.error("❌ รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน")
+                        st.error("รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน")
                     elif check_username_exists(reg_user):
-                        st.warning("⚠️ ชื่อผู้ใช้นี้ถูกใช้งานแล้ว กรุณาใช้ชื่ออื่น")
+                        st.warning("ชื่อผู้ใช้นี้ถูกใช้งานแล้ว กรุณาใช้ชื่ออื่น")
                     else:
                         add_userdata(reg_user, reg_pass)
-                        st.success("🎉 สมัครสมาชิกสำเร็จเรียบร้อย! คุณสามารถเข้าสู่ระบบได้ทันที")
+                        st.success("สมัครสมาชิกสำเร็จเรียบร้อย! คุณสามารถเข้าสู่ระบบได้ทันที")
                 else:
-                    st.warning("⚠️ กรุณากรอกข้อมูลลงทะเบียนให้ครบถ้วน")
+                    st.warning("กรุณากรอกข้อมูลลงทะเบียนให้ครบถ้วน")
 
 # ---------------------------------------------------------
 # 5. Main Dashboard Screen
 # ---------------------------------------------------------
 def show_main_dashboard():
+    user_initial = st.session_state['username'][0].upper() if st.session_state['username'] else "U"
+    
     with st.sidebar:
         st.markdown(f"""
             <div class="sidebar-user">
-                <div class="sidebar-avatar">👤</div>
+                <div class="sidebar-avatar">{user_initial}</div>
                 <div style="color: #94A3B8; font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">ผู้ใช้งานปัจจุบัน</div>
                 <div style="color: #F8FAFC; font-size: 1.1rem; font-weight: 700; margin-top: 2px;">{st.session_state['username']}</div>
             </div>
         """, unsafe_allow_html=True)
         
-        if st.button("🚪 ออกจากระบบ"):
+        if st.button("ออกจากระบบ"):
             st.session_state["authenticated"] = False
             st.session_state["username"] = ""
             st.rerun()
 
     st.markdown("""
         <div class="hero-header">
-            <div class="badge-pill">⚡ INTELLIGENT HEALTH ENGINE</div>
+            <div class="badge-pill">INTELLIGENT HEALTH ENGINE</div>
             <h1 class="hero-title">NUTRITION & BODY DASHBOARD</h1>
             <div class="hero-sub">คำนวณพลังงาน BMR / TDEE และวิเคราะห์รูปร่างด้วย AI มืออาชีพ</div>
         </div>
     """, unsafe_allow_html=True)
 
-    tab_calc, tab_ai = st.tabs(["📊 คำนวณ BMR / TDEE", "📸 สแกนรูปร่างด้วย AI"])
+    tab_calc, tab_ai = st.tabs(["คำนวณ BMR / TDEE", "สแกนรูปร่างด้วย AI"])
 
     # --- TAB 1: คำนวณ BMR/TDEE ---
     with tab_calc:
         with st.container(border=True):
-            st.markdown('<div class="card-heading">📋 ข้อมูลส่วนบุคคลเพื่อคำนวณ</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-heading">ข้อมูลส่วนบุคคลเพื่อคำนวณ</div>', unsafe_allow_html=True)
             
             col1, col2 = st.columns(2)
             with col1:
@@ -616,7 +652,7 @@ def show_main_dashboard():
             }
             activity = st.selectbox("ระดับกิจกรรมประจำวัน", list(act_factors.keys()))
 
-            calculate_btn = st.button("🚀 คำนวณผลลัพธ์และจัดเมนูอาหาร")
+            calculate_btn = st.button("คำนวณผลลัพธ์และจัดเมนูอาหาร")
 
         if calculate_btn:
             height_m = height / 100
@@ -631,7 +667,7 @@ def show_main_dashboard():
 
             st.write("")
             with st.container(border=True):
-                st.markdown('<div class="card-heading">📊 สรุปผลลัพธ์ดัชนีร่างกายของคุณ</div>', unsafe_allow_html=True)
+                st.markdown('<div class="card-heading">สรุปผลลัพธ์ดัชนีร่างกายของคุณ</div>', unsafe_allow_html=True)
 
                 st.markdown(f"""
                     <div class="metric-grid">
@@ -654,11 +690,11 @@ def show_main_dashboard():
                     target_cal = tdee + 400
                     st.markdown(f"""
                         <div class="advice-card advice-underweight">
-                            <div class="advice-header">⚠️ สถานะ: น้ำหนักน้อยกว่าเกณฑ์มาตรฐาน (BMI < 18.5)</div>
+                            <div class="advice-header">สถานะ: น้ำหนักน้อยกว่าเกณฑ์มาตรฐาน (BMI < 18.5)</div>
                             <div class="advice-body">
                                 พลังงานที่แนะนำต่อวันสำหรับการเพิ่มน้ำหนักอย่างมีคุณภาพ: <b style="color:#FBBF24;">{target_cal:,.0f} kcal / วัน</b>
                                 <hr style="border-top: 1px solid rgba(245, 158, 11, 0.2); margin: 12px 0;">
-                                <b>🍽️ แนวทางโภชนาการและสารอาหารแนะนำ:</b>
+                                <b>แนวทางโภชนาการและสารอาหารแนะนำ:</b>
                                 <div class="food-chip-group">
                                     <span class="food-chip">🥩 อกไก่ & ปลาแซลมอน</span>
                                     <span class="food-chip">🥚 ไข่ต้ม (2-3 ฟอง/วัน)</span>
@@ -673,11 +709,11 @@ def show_main_dashboard():
                 elif 18.5 <= bmi <= 22.9:
                     st.markdown(f"""
                         <div class="advice-card advice-normal">
-                            <div class="advice-header">✅ สถานะ: น้ำหนักอยู่ในเกณฑ์สมส่วน (BMI 18.5 - 22.9)</div>
+                            <div class="advice-header">สถานะ: น้ำหนักอยู่ในเกณฑ์สมส่วน (BMI 18.5 - 22.9)</div>
                             <div class="advice-body">
                                 พลังงานที่แนะนำต่อวันสำหรับการรักษาสมดุลร่างกาย: <b style="color:#34D399;">{tdee:,.0f} kcal / วัน</b>
                                 <hr style="border-top: 1px solid rgba(16, 185, 129, 0.2); margin: 12px 0;">
-                                <b>🍽️ แนวทางโภชนาการและสารอาหารแนะนำ:</b>
+                                <b>แนวทางโภชนาการและสารอาหารแนะนำ:</b>
                                 <div class="food-chip-group">
                                     <span class="food-chip">🥗 สัดส่วนจานสุขภาพ 2:1:1</span>
                                     <span class="food-chip">🍗 อกไก่ลอกหนัง & ปลาเนื้อขาว</span>
@@ -692,11 +728,11 @@ def show_main_dashboard():
                     target_cal = tdee - 500
                     st.markdown(f"""
                         <div class="advice-card advice-overweight">
-                            <div class="advice-header">🚨 สถานะ: น้ำหนักเกินเกณฑ์มาตรฐาน (BMI ≥ 23.0)</div>
+                            <div class="advice-header">สถานะ: น้ำหนักเกินเกณฑ์มาตรฐาน (BMI ≥ 23.0)</div>
                             <div class="advice-body">
                                 พลังงานที่แนะนำต่อวันสำหรับการลดไขมันอย่างปลอดภัย: <b style="color:#F87171;">{target_cal:,.0f} kcal / วัน</b>
                                 <hr style="border-top: 1px solid rgba(239, 68, 68, 0.2); margin: 12px 0;">
-                                <b>🍽️ แนวทางโภชนาการและสารอาหารแนะนำ:</b>
+                                <b>แนวทางโภชนาการและสารอาหารแนะนำ:</b>
                                 <div class="food-chip-group">
                                     <span class="food-chip">🥦 ผักบรอกโคลี & กะหล่ำปลี (เน้นอิ่มนาน)</span>
                                     <span class="food-chip">🍳 อกไก่ต้ม & ไข่ขาว</span>
@@ -710,12 +746,12 @@ def show_main_dashboard():
     # --- TAB 2: วิเคราะห์รูปร่างด้วย AI ---
     with tab_ai:
         with st.container(border=True):
-            st.markdown('<div class="card-heading">📸 สแกนและวิเคราะห์รูปร่างด้วย AI</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-heading">สแกนและวิเคราะห์รูปร่างด้วย AI</div>', unsafe_allow_html=True)
             
-            cam_mode = st.radio("เลือกช่องทางรับภาพ:", ["📷 เปิดกล้องถ่ายภาพ", "📁 อัปโหลดไฟล์รูปภาพ"])
+            cam_mode = st.radio("เลือกช่องทางรับภาพ:", ["เปิดกล้องถ่ายภาพ", "อัปโหลดไฟล์รูปภาพ"])
             
             img_file = None
-            if cam_mode == "📷 เปิดกล้องถ่ายภาพ":
+            if cam_mode == "เปิดกล้องถ่ายภาพ":
                 img_file = st.camera_input("ถ่ายรูปหน้าตรงให้เห็นช่วงลำตัวหรือทั้งตัว")
             else:
                 img_file = st.file_uploader("อัปโหลดภาพถ่ายรูปร่างของคุณ", type=["jpg", "jpeg", "png"])
@@ -724,7 +760,7 @@ def show_main_dashboard():
                 image = Image.open(img_file)
                 st.image(image, caption="ภาพถ่ายของคุณ", use_container_width=True)
 
-                if st.button("🤖 ให้ AI วิเคราะห์รูปร่างและคำแนะนำ"):
+                if st.button("ให้ AI วิเคราะห์รูปร่างและคำแนะนำ"):
                     with st.spinner("AI กำลังประมวลผลและวิเคราะห์โครงสร้างร่างกายของคุณ..."):
                         try:
                             prompt = """
@@ -773,14 +809,14 @@ def show_main_dashboard():
                                     continue
 
                             if response:
-                                st.markdown(f'<div class="card-heading">📝 ผลการวิเคราะห์จาก AI ({used_model})</div>', unsafe_allow_html=True)
+                                st.markdown(f'<div class="card-heading">ผลการวิเคราะห์จาก AI ({used_model})</div>', unsafe_allow_html=True)
                                 st.markdown(f'<div class="ai-response-box">{response.text}</div>', unsafe_allow_html=True)
                             else:
                                 st.error(f"เกิดข้อผิดพลาดในการเรียกใช้ AI: {last_err}")
                                 if available_models:
-                                    st.info(f"💡 รายชื่อโมเดลที่รองรับในระบบของคุณ: {', '.join(available_models)}")
+                                    st.info(f"รายชื่อโมเดลที่รองรับในระบบของคุณ: {', '.join(available_models)}")
                                 else:
-                                    st.warning("⚠️ กรุณาตรวจสอบ API Key ของคุณในบรรทัดที่ 16 ของ phum.py (API Key จาก Google AI Studio มักจะขึ้นต้นด้วย 'AIzaSy...')")
+                                    st.warning("กรุณาตรวจสอบ API Key ของคุณในบรรทัดที่ 16 ของ phum.py (API Key จาก Google AI Studio มักจะขึ้นต้นด้วย 'AIzaSy...')")
 
                         except Exception as e:
                             st.error(f"เกิดข้อผิดพลาดในการวิเคราะห์ภาพ: {e}")
