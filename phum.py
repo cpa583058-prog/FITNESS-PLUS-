@@ -625,11 +625,11 @@ def show_main_dashboard():
         <div class="hero-header">
             <div class="badge-pill">INTELLIGENT HEALTH ENGINE</div>
             <h1 class="hero-title">NUTRITION & BODY DASHBOARD</h1>
-            <div class="hero-sub">คำนวณพลังงาน BMR / TDEE และวิเคราะห์รูปร่างด้วย AI มืออาชีพ</div>
+            <div class="hero-sub">คำนวณพลังงาน BMI / BMR / TDEE และวิเคราะห์รูปร่างด้วย AI มืออาชีพ</div>
         </div>
     """, unsafe_allow_html=True)
 
-    tab_calc, tab_ai = st.tabs(["คำนวณ BMR / TDEE", "สแกนรูปร่างด้วย AI"])
+    tab_calc, tab_ai = st.tabs(["คำนวณ BMI / BMR / TDEE", "สแกนรูปร่างด้วย AI"])
 
     # --- TAB 1: คำนวณ BMR/TDEE ---
     with tab_calc:
